@@ -114,3 +114,54 @@ break;
 createFood();
 document.addEventListener("keydown", handleKeyDown);
 update();
+
+function checkCollision() {
+  // Verifica se a cabeça da cobrinha colidiu com o seu próprio corpo
+  for (let i = 1; i < snake.length; i++) {
+    if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
+      endGame();
+    }
+  }
+}
+
+function update() {
+  // Atualiza a posição da cabeça da cobrinha com base na direção atual
+  switch (direction) {
+    case "up":
+      snake.unshift({ x: snake[0].x, y: snake[0].y - 1 });
+      break;
+    case "down":
+      snake.unshift({ x: snake[0].x, y: snake[0].y + 1 });
+      break;
+    case "left":
+      snake.unshift({ x: snake[0].x - 1, y: snake[0].y });
+      break;
+    case "right":
+      snake.unshift({ x: snake[0].x + 1, y: snake[0].y });
+      break;
+  }
+
+  // Verifica se a cabeça da cobrinha colidiu com uma parede ou com o seu próprio corpo
+  if (snake[0].x < 0 || snake[0].x >= gridSize ||
+      snake[0].y < 0 || snake[0].y >= gridSize ||
+      checkCollision()) {
+    endGame();
+    return;
+  }
+
+  // Remove a cauda da cobrinha se ela não comeu uma fruta
+  if (!ateFood) {
+    snake.pop();
+  } else {
+    ateFood = false;
+    spawnFood();
+  }
+
+  draw();
+}
+
+function endGame() {
+  // Encerra o jogo
+  clearInterval(gameInterval);
+  alert("Game over!");
+}
