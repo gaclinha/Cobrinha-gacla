@@ -3,20 +3,25 @@ import './style.css';
 
 // Write Javascript code!
 // Configuração inicial do jogo
-const canvas = document.getElementById("snakeCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('snakeCanvas');
+const ctx = canvas.getContext('2d');
 const gridSize = 10;
 const gridWidth = canvas.width / gridSize;
 const gridHeight = canvas.height / gridSize;
 let snake = [{ x: 5, y: 5 }];
-let direction = "right";
+let direction = 'right';
 let food = {};
 
 // Função para desenhar a cobrinha
 function drawSnake() {
   snake.forEach((segment) => {
-    ctx.fillStyle = "#000";
-    ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+    ctx.fillStyle = '#FFFF00';
+    ctx.fillRect(
+      segment.x * gridSize,
+      segment.y * gridSize,
+      gridSize,
+      gridSize
+    );
   });
 }
 
@@ -24,16 +29,16 @@ function drawSnake() {
 function moveSnake() {
   let head = { x: snake[0].x, y: snake[0].y };
   switch (direction) {
-    case "up":
+    case 'up':
       head.y--;
       break;
-    case "down":
+    case 'down':
       head.y++;
       break;
-    case "left":
+    case 'left':
       head.x--;
       break;
-    case "right":
+    case 'right':
       head.x++;
       break;
   }
@@ -59,7 +64,7 @@ function moveSnake() {
 
 // Função para desenhar a comida
 function drawFood() {
-  ctx.fillStyle = "#f00";
+  ctx.fillStyle = '#f00';
   ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
 }
 
@@ -76,42 +81,43 @@ function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   moveSnake();
   drawSnake();
-// desenha a cobrinha
-drawSnake();
-// desenha a comida
-drawFood();
-// agendador para a próxima atualização do jogo
-setTimeout(update, 100);
+  // desenha a cobrinha
+  drawSnake();
+  // desenha a comida
+  drawFood();
+  // agendador para a próxima atualização do jogo
+  setTimeout(update, 100);
 }
 
 // Função para lidar com eventos de teclado
 function handleKeyDown(event) {
-switch (event.key) {
-case "ArrowUp":
-if (direction !== "down") {
-direction = "up";
-}
-break;
-case "ArrowDown":
-if (direction !== "up") {
-direction = "down";
-}
-break;
-case "ArrowLeft":
-if (direction !== "right") {
-direction = "left";
-}
-break;
-case "ArrowRight":
-if (direction !== "left") {
-direction = "right";
-}
-break;
-}
+  switch (event.key) {
+    case 'ArrowUp':
+      if (direction !== 'down') {
+        direction = 'up';
+      }
+      break;
+    case 'ArrowDown':
+      if (direction !== 'up') {
+        direction = 'down';
+      }
+      break;
+    case 'ArrowLeft':
+      if (direction !== 'right') {
+        direction = 'left';
+      }
+      break;
+    case 'ArrowRight':
+      if (direction !== 'left') {
+        direction = 'right';
+      }
+      break;
+  }
 }
 
 // Configuração inicial do jogo
 createFood();
+<<<<<<< HEAD
 document.addEventListener("keydown", handleKeyDown);
 update();
 
@@ -165,3 +171,7 @@ function endGame() {
   clearInterval(gameInterval);
   alert("Game over!");
 }
+=======
+document.addEventListener('keydown', handleKeyDown);
+update();
+>>>>>>> f206d587570319f5ef40b61e590fa63a4ae754f4
